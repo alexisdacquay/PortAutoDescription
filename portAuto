@@ -280,19 +280,24 @@ def main():
 
     for i in neighbors:
         localIntf = i['port']
-        intfDesc = '*** Link to %s(%s)' % (i['neighborDevice'],
-                                           i['neighborPort'])
-        if i['neighborSystemDescription'].find('EOS') != -1:
-            # substring found in the text
-            vlanID = '3'
-        else:
-            # if -1 then substring found in the text
-            vlanID = '50'
-        rc = run_cmds(eapi, ['enable',
-                             'configure',
-                             'interface %s' % localIntf,
-                             'switchport access vlan %s' % vlanID,
-                             'description %s' % intfDesc])
+        if not 'Management' in localIntf:
+            # If the interfaces isn't a Management (we don't want to provision those)
+            intfDesc = '*** Link to %s(%s)' % (i['neighborDevice'],
+                                            i['neighborPort'])
+            if i['neighborSystemDescription'].find('EOS') != -1:
+                # substring found in the text
+                vlanID = '3'
+            else:
+                # if -1 then substring found in the text
+                vlanID = '50'
+            rc = run_cmds(eapi, ['enable',
+                                'configure',
+                                'interface %s' % localIntf,
+                                'switchport',
+                                'switchport access vlan %s' % vlanID,
+                                'description %s' % intfDesc])
+            print ('Done provisioning Description and Vlan ID ' + vlanID + \
+                                ' on port ' +  localIntf)
 
 if __name__ == '__main__':
    main()
