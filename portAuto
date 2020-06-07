@@ -291,7 +291,7 @@ def main():
         rc = run_cmds(eapi, ['enable',
                              'configure',
                              'interface %s' % localIntf,
-                             'switchport acqcess vlan %s' %vlanID,
+                             'switchport access vlan %s' % vlanID,
                              'description %s' % intfDesc])
 
 if __name__ == '__main__':
