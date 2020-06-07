@@ -282,14 +282,16 @@ def main():
         localIntf = i['port']
         intfDesc = '*** Link to %s(%s)' % (i['neighborDevice'],
                                            i['neighborPort'])
-        if i['neighborSystemDescription'].find('EOS'):
+        if i['neighborSystemDescription'].find('EOS') != -1:
+            # substring found in the text
             vlanID = '3'
         else:
+            # if -1 then substring found in the text
             vlanID = '50'
         rc = run_cmds(eapi, ['enable',
                              'configure',
                              'interface %s' % localIntf,
-                             'switchport access vlan %s' %vlanID,
+                             'switchport acqcess vlan %s' %vlanID,
                              'description %s' % intfDesc])
 
 if __name__ == '__main__':
