@@ -285,7 +285,7 @@ def main():
             intfDesc = '*** Link to %s(%s)' % (i['neighborDevice'],
                                             i['neighborPort'])
             #if i['neighborSystemDescription'].find('EOS') != -1:
-            if i['neighborSystemDescription'].find('7020') != -1
+            if i['neighborSystemDescription'].find('7020') != -1:
                 # substring found in the text
                 vlanID = '3'
             else:
